@@ -2,15 +2,19 @@ package org.bouche.training.sample.accounts;
 
 import java.math.BigDecimal;
 import java.text.DateFormat;
+import java.text.ParseException;
 import java.text.SimpleDateFormat;
+import java.util.Iterator;
+import java.util.List;
 
 import org.bouche.training.sample.accounts.model.BankChargeOperation;
 import org.bouche.training.sample.accounts.model.CurrentAccount;
+import org.bouche.training.sample.accounts.model.IOperation;
 import org.bouche.training.sample.accounts.model.TransferOperation;
 
 public class MainClass {
 
-	public static void main(String[] args) {
+	public static void main(String[] args) throws ParseException {
 
 		DateFormat df = new SimpleDateFormat("yyyy-MM-dd");
 		
@@ -29,9 +33,14 @@ public class MainClass {
 		account1.addOperation(new TransferOperation(new BigDecimal("2540.50"), df.parse("2019-10-02"), "Salary"));
 		
 		// Display the list of operations for account1 between September 15th, 2019 and October 15th, 2019
+		List<IOperation> operations = account1.getOperations(df.parse("2019-09-15"), df.parse("2019-10-15"));
+		Iterator<IOperation> it = operations.iterator();
+		while(it.hasNext()) {
+			System.out.println(it.next().getLabel());
+		}
 		
 		// Display the balance of account1 on September 29th, 2019
-		
+		System.out.println(account1.getBalance(df.parse("2019-09-29")));
 	}
 	
 }

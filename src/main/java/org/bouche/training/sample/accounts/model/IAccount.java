@@ -8,7 +8,7 @@ public interface IAccount {
 
 	public BigDecimal getBalance(Date date);
 	
-	public void addOperation();
+	public void addOperation(IOperation operation);
 	
 	public String getAccountNumber();
 	
